@@ -1,11 +1,16 @@
 # app/robo_advisor.py
 
 import csv
-import requests
 import json
 import os
+
+from dotenv import load_dotenv
+import requests
 import datetime
 import time
+
+load_dotenv() #> loads contents of the .env file into the script's environment
+
 
 #convert to USD (from shopping cart)
 def to_usd(my_price):
@@ -15,9 +20,12 @@ def to_usd(my_price):
 # INFO INPUTS
 #
 
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
-response = requests.get(request_url)
+api_key = my_var = os.environ.get("ALPHAVANTAGE_API_KEY")
 
+symbol = "MSFT" #TODO ask user
+
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
+response = requests.get(request_url)
 
 parsed_response = json.loads(response.text)
 
