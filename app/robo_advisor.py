@@ -5,19 +5,24 @@ import json
 import datetime
 import time
 
+#convert to USD (from shopping cart)
+def to_usd(my_price):
+    return "${0:.2f}".format(my_price)
+
 #
 # INFO INPUTS
 #
 
 request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
 response = requests.get(request_url)
-#print(type(response)) #> <classs 'requests.models.Response'>
-#print(response.status_code) #> 200
-#print(response.text) #
+
 
 parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
+
+latest_close = parsed_response["Time Series (Daily)"]["2019-06-21"]["4. close"] #>137.0000
+
 #breakpoint()
 
 
@@ -31,12 +36,11 @@ print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT:")
-import datetime
-now = time.strftime("%Y-%m-%d %H:%M:%p") #help from Shao Zhou
+now = time.strftime("%Y-%m-%d %H:%M:%p") 
 print(str(now))
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")
-print("LATEST CLOSE: $100,000.00")
+print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
 print("-------------------------")
