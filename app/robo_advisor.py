@@ -114,7 +114,7 @@ print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
 
-#Recommendations - help from a friend outside of class
+#Recommendations - help from a friend
 if float(latest_close) >= (recent_high-(0.2*recent_high)):
     print("RECOMMENDATION: Buy")
     print("RECOMMENDATION REASON: Latest closing price is more than than 20 percent below the recent high price - stock may be rising")
