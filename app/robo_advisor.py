@@ -22,6 +22,8 @@ def to_usd(my_price):
 
 api_key = my_var = os.environ.get("ALPHAVANTAGE_API_KEY")
 
+
+
 symbol = "MSFT" #TODO ask user
 
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
@@ -98,8 +100,18 @@ print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
-print("RECOMMENDATION REASON: TODO")
+
+#Recommendations - help from a friend outside of class
+if float(latest_close) >= (recent_high-(0.2*recent_high)):
+    print("RECOMMENDATION: Buy")
+    print("RECOMMENDATION REASON: Latest closing price is more than than 20 percent below the recent high price - stock may be rising")
+else:
+    print("RECOMMENDATION: Don't Buy")
+    print("RECOMMENDATION REASON: Latest closing price is less than 20 percent below the recent high price - stock may be going down")
+
+#print("RECOMMENDATION: BUY!")
+#print("RECOMMENDATION REASON: TODO")
+
 print("-------------------------")
 print(f"WRITING DATA TO CSV:{csv_file_path}...")
 print("-------------------------")
