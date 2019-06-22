@@ -22,9 +22,22 @@ def to_usd(my_price):
 
 api_key = my_var = os.environ.get("ALPHAVANTAGE_API_KEY")
 
+#input stock ticker - help from friend
+
+while True:
+        symbol = input("Please input the stock ticker for your stock: ")
+        if not symbol.isalpha():
+            print("Please try again. Input the stock ticker (e.g. MSFT) for your stock")
+        else:
+            data = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + api_key)
+
+            if "Error" in data.text:
+                print("OOPS. This is not a valid ticker. Please try again.")
+            else:
+                break
 
 
-symbol = "MSFT" #TODO ask user
+#symbol = "MSFT" #TODO ask user
 
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
 response = requests.get(request_url)
@@ -88,7 +101,7 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
     
 import datetime
 print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
+print("SELECTED SYMBOL: " + symbol)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT:")
